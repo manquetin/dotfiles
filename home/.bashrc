@@ -240,7 +240,7 @@ function __prompt_command()
 
     history -a
 
-    PS1="[\D{%d %b %Y} \A]"
+    PS1="\n[\D{%d %b %Y} \A]"
     PS1+=" - ["
     PS1+="\[${SU}\]\u\[${NC}\]"
     PS1+="\[${BWhite}\] @ \[${NC}\]"
