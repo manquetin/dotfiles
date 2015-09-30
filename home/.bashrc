@@ -286,3 +286,23 @@ fi
 if [ -f "${HOME}/.bash_aliases" ]; then
     . "${HOME}/.bash_aliases"
 fi
+
+# ---------------------------------------------------------------------------- #
+# Python environments management
+# ---------------------------------------------------------------------------- #
+VIRTUALENVWRAPPER_SCRIPT="$(which virtualenvwrapper.sh)"
+if [ "x${VIRTUALENVWRAPPER_SCRIPT}" != "x" ]; then
+
+    if [ ! -d "${HOME}/Python/Envs" ]; then
+        mkdir -p "${HOME}/Python/Envs"
+    fi
+
+    if [ ! -d "${HOME}/Python/Projects" ]; then
+        mkdir -p "${HOME}/Python/Projects"
+    fi
+
+    export WORKON_HOME="${HOME}/Python/Envs"
+    export PROJECT_HOME="${HOME}/Python/Projects"
+    . ${VIRTUALENVWRAPPER_SCRIPT}
+fi
+
