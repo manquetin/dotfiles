@@ -114,10 +114,29 @@ NC='\e[0m'
 ALERT=${BWhite}${On_Red} # Bold White on red background
 
 # ---------------------------------------------------------------------------- #
+# Python environments management
+# ---------------------------------------------------------------------------- #
+VIRTUALENVWRAPPER_SCRIPT="$(which virtualenvwrapper.sh)"
+if [ "x${VIRTUALENVWRAPPER_SCRIPT}" != "x" ]; then
+
+    if [ ! -d "${HOME}/Python/Envs" ]; then
+        mkdir -p "${HOME}/Python/Envs"
+    fi
+
+    if [ ! -d "${HOME}/Python/Projects" ]; then
+        mkdir -p "${HOME}/Python/Projects"
+    fi
+
+    export WORKON_HOME="${HOME}/Python/Envs"
+    export PROJECT_HOME="${HOME}/Python/Projects"
+    . ${VIRTUALENVWRAPPER_SCRIPT}
+fi
+
+# ---------------------------------------------------------------------------- #
 # Shell prompt
 # ---------------------------------------------------------------------------- #
 # [TIME] - [USER @ HOST] - [PWD NR_FILES SIZE/SIZE_FS]
-# [JOBSr/JOBSs/LOAD_AVG] - [$?] > 
+# [JOBSr/JOBSs/LOAD_AVG] - [$?] - (VIRTUALENV) > 
 
 # Test connection type
 if [ -n "${SSH_CONNECTION}" ]; then
@@ -222,6 +241,8 @@ function size_color()
             echo -en ${ALERT}
         elif [ ${used} -gt 90 ]; then
             echo -en ${BRed}
+        elif [ ${used} -gt 75 ]; then
+            echo -en ${BYellow}
         else
             echo -en ${BGreen}
         fi
@@ -254,10 +275,16 @@ function __prompt_command()
     PS1+="\[\$(load_color)\]\$(cut -d ' ' -f1 /proc/loadavg)\[${NC}\]"
     
     if [[ ${EXIT} -ne 0 ]]; then
-        PS1+="] - [\[${Red}\]${EXIT}\[${NC}\]] > "
+        PS1+="] - [\[${Red}\]${EXIT}\[${NC}\]]"
     else
-        PS1+="] - [\[${Green}\]${EXIT}\[${NC}\]] > "
+        PS1+="] - [\[${Green}\]${EXIT}\[${NC}\]]"
     fi
+
+    if [ ! -z ${VIRTUAL_ENV} ]; then
+        PS1+=" - (\[${Blue}\]$(basename ${VIRTUAL_ENV})\[${NC}\])"
+    fi
+
+    PS1+=" > "
 }
  
 case ${TERM} in
@@ -287,22 +314,4 @@ if [ -f "${HOME}/.bash_aliases" ]; then
     . "${HOME}/.bash_aliases"
 fi
 
-# ---------------------------------------------------------------------------- #
-# Python environments management
-# ---------------------------------------------------------------------------- #
-VIRTUALENVWRAPPER_SCRIPT="$(which virtualenvwrapper.sh)"
-if [ "x${VIRTUALENVWRAPPER_SCRIPT}" != "x" ]; then
-
-    if [ ! -d "${HOME}/Python/Envs" ]; then
-        mkdir -p "${HOME}/Python/Envs"
-    fi
-
-    if [ ! -d "${HOME}/Python/Projects" ]; then
-        mkdir -p "${HOME}/Python/Projects"
-    fi
-
-    export WORKON_HOME="${HOME}/Python/Envs"
-    export PROJECT_HOME="${HOME}/Python/Projects"
-    . ${VIRTUALENVWRAPPER_SCRIPT}
-fi
 
