@@ -282,6 +282,8 @@ function __prompt_command()
 
     if [ ! -z ${VIRTUAL_ENV} ]; then
         PS1+=" - (\[${Blue}\]$(basename ${VIRTUAL_ENV})\[${NC}\])"
+    elif [ ! -z ${CROSS_COMPILE} ]; then
+        PS1+=" - (\[${Blue}\]$(echo ${CROSS_COMPILE} | sed 's/-$//')\[${NC}\])"
     fi
 
     PS1+=" > "
