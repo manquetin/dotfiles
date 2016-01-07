@@ -73,6 +73,8 @@ if [[ -e "${HOME}/.homesick/repos/homeshick" ]]; then
     source "${HOME}/.homesick/repos/homeshick/completions/homeshick-completion.bash"
 fi
 
+homeshick --quiet refresh
+
 # ---------------------------------------------------------------------------- #
 # Colors
 # ---------------------------------------------------------------------------- #
