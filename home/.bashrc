@@ -138,7 +138,7 @@ fi
 # Shell prompt
 # ---------------------------------------------------------------------------- #
 # [TIME] - [USER @ HOST] - [PWD NR_FILES SIZE/SIZE_FS]
-# [JOBSr/JOBSs/LOAD_AVG] - [$?] - (VIRTUALENV) > 
+# [JOBSr/JOBSs/LOAD_AVG] - [$?] - (VIRTUALENV) >
 
 # Test connection type
 if [ -n "${SSH_CONNECTION}" ]; then
@@ -216,7 +216,7 @@ function path_size()
         let TotalBytes=$TotalBytes+$Bytes
     done
 
-    # The if...fi's give a more specific output in byte, kilobyte, megabyte, 
+    # The if...fi's give a more specific output in byte, kilobyte, megabyte,
     # and gigabyte
     if [ $TotalBytes -lt 1024 ]; then
         TotalSize=$(echo -e "scale=3 \n$TotalBytes \nquit" | bc)
@@ -275,7 +275,7 @@ function __prompt_command()
     PS1+="]\n["
     PS1+="\$(background_jobs)"
     PS1+="\[\$(load_color)\]\$(cut -d ' ' -f1 /proc/loadavg)\[${NC}\]"
-    
+
     if [[ ${EXIT} -ne 0 ]]; then
         PS1+="] - [\[${Red}\]${EXIT}\[${NC}\]]"
     else
@@ -290,7 +290,7 @@ function __prompt_command()
 
     PS1+=" > "
 }
- 
+
 case ${TERM} in
     xterm* | rxvt* | linux)
         PS1=${PS1}
