@@ -118,7 +118,7 @@ ALERT=${BWhite}${On_Red} # Bold White on red background
 # ---------------------------------------------------------------------------- #
 # Python environments management
 # ---------------------------------------------------------------------------- #
-VIRTUALENVWRAPPER_SCRIPT="$(which virtualenvwrapper.sh)"
+VIRTUALENVWRAPPER_SCRIPT="$(which virtualenvwrapper)"
 if [ "x${VIRTUALENVWRAPPER_SCRIPT}" != "x" ]; then
 
     if [ ! -d "${HOME}/Python/Envs" ]; then
